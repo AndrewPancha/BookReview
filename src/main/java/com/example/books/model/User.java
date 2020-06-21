@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "usr")
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -107,6 +108,7 @@ public class User implements UserDetails{
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

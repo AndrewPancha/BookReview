@@ -48,6 +48,7 @@
 
      <div class="card my-3" style="width: 18rem;">
          <b>${book.bookName}</b>
+         <b>${book.author}</b>
          <span>${book.review}</span>
      </div>
 

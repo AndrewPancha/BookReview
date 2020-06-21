@@ -4,6 +4,7 @@ import com.example.books.model.Role;
 import com.example.books.model.User;
 import com.example.books.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,14 +19,21 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements UserDetailsService{
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private MailSender mailSender;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Value("${hostname}")
+    private String hostname;
+
+    @Autowired
+    public UserService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.mailSender = mailSender;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -57,8 +65,9 @@ public class UserService implements UserDetailsService{
         if (!StringUtils.isEmpty(user.getEmail())) { //if email is not empty send activation code
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to BooksRepo. Please, visit next link: http://localhost:8080/activate/%s",
+                            "Welcome to BooksRepo. Please, visit next link: http://%s/activate/%s",
                     user.getUsername(),
+                    hostname,
                     user.getActivationCode()
             );
 

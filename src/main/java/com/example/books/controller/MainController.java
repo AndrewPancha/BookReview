@@ -24,11 +24,16 @@ public class MainController {
 
     @GetMapping("/")
     public String mainLogin(Model model) {
-        return "login";
+        return "greeting";
     }
 
+//    @GetMapping("/login")
+//    public String greeting(Model model) {
+//        return "login";
+//    }
+
     @GetMapping("/greeting")
-    public String greeting(Model model) {
+    public String greeting() {
         return "greeting";
     }
 
@@ -69,6 +74,25 @@ public class MainController {
         }
         model.addAttribute("books", books);
         return "main";
+    }
+
+    @GetMapping("/home")
+    public String home(Model model) {
+        Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
+
+        return "home";
+    }
+
+    @GetMapping("/globalFind")
+    public String globalFind(@RequestParam String findBookName, Model model) {
+        Iterable<Book> books = bookRepository.findAll();
+        if (books == null) {
+            model.addAttribute("message", "Can't find!");
+            return "home";
+        }
+        model.addAttribute("books, books");
+        return "home";
     }
 
 

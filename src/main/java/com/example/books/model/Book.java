@@ -13,9 +13,11 @@ public class Book {
     private Integer id;
 
     @NotBlank(message = "Please fill the Name")
-    @Length(max = 60, message = "Book name too long")
+    @Length(max = 60, message = "Book name is too long")
     private String bookName;
-    @Length(max = 400, message = "Message too long")
+    @Length(max = 60, message = "Author name is too long")
+    private String author;
+    @Length(max = 4056, message = "Review is too long")
     private String review;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -45,6 +47,14 @@ public class Book {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getBookName() {
