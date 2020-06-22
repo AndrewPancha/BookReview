@@ -18,12 +18,27 @@
                     </#if>
                 </div>
                 <div class="form-group">
+                    <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
+                                           value="<#if book??>${book.author}</#if>" name="author" placeholder="Author name" />
+                    <#if authorError??>
+                       <div class="invalid-feedback">
+                            ${authorError}
+                       </div>
+                    </#if>
+                </div>
+                <div class="form-group">
                     <input type="text" class="form-control" name="review" placeholder="Review"/>
                     <#if reviewError??>
                         <div class="invalid-feedback">
                             ${reviewError}
                         </div>
                     </#if>
+                </div>
+                <div class="form-group">
+                      <div class="custom-file">
+                            <input type="file" name="file" id="customFile">
+                             <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <div class="form-group">
@@ -44,16 +59,30 @@
 
 
 <#if books??>
+<div class="card-columns">
     <#list books as book>
 
-     <div class="card my-3" style="width: 18rem;">
-         <b>${book.bookName}</b>
-         <b>${book.author}</b>
-         <span>${book.review}</span>
+   <div class="card mb-3" style="max-width: 540px;">
+       <div class="row no-gutters">
+         <div class="col-md-4">
+             <img src="/img/${book.filename}" class="card-img">
+         </div>
+         <div class="col-md-8">
+           <div class="card-body">
+             <h5 class="card-title">${book.bookName}</h5>
+             <p class="card-text"><small class="text-muted">${book.user.username}</small></p>
+             <a href="/bookProfile" class="card-link">Full review</a>
+           </div>
+         </div>
      </div>
+     <div class="card-body">
+        <a href="/bookEdit" class="card-link">Edit</a>
+        <a href="/delete" class="card-link">Delete</a>
+     </div>
+  </div>
 
     </#list>
-
+</div>
 <#else>No books added
 </#if>
 
