@@ -15,10 +15,14 @@ public class Book {
     @NotBlank(message = "Please fill the Name")
     @Length(max = 60, message = "Book name is too long")
     private String bookName;
+    @NotBlank(message = "Please fill the Name")
     @Length(max = 60, message = "Author name is too long")
     private String author;
+    @NotBlank(message = "Please fill the review")
     @Length(max = 4056, message = "Review is too long")
     private String review;
+
+    private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -71,5 +75,13 @@ public class Book {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

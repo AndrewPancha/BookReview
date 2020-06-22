@@ -5,6 +5,7 @@ create table book (
     book_name varchar(60),
     author varchar(60),
     review varchar(4056) not null,
+    filename varchar(255),
     user_id int4,
     primary key (id)
 );
