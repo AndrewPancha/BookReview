@@ -9,4 +9,8 @@ import java.util.List;
 @Repository
 public interface BookRepository extends CrudRepository<Book, Long> {
     List<Book> findByBookNameIgnoreCase(String bookName);
+
+    void deleteByUserIdAndBookName(Integer id, String bookName);
+
+    List<Book> findByUserId(Integer id);
 }
