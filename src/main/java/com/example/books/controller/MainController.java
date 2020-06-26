@@ -111,7 +111,7 @@ public class MainController {
 
     @GetMapping("/globalFind")
     public String globalFind(@RequestParam String findBookName, Model model) {
-        Iterable<Book> books = bookRepository.findAll();
+        Iterable<Book> books = bookRepository.findByBookNameIgnoreCase(findBookName);
         if (books != null) {
             model.addAttribute("books, books");
             return "home";

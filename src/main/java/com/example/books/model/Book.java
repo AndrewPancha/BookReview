@@ -10,7 +10,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Please fill the Name")
     @Length(max = 60, message = "Book name is too long")
@@ -45,11 +45,11 @@ public class Book {
         this.user = user;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

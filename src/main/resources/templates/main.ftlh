@@ -3,7 +3,7 @@
 <@c.page>
 
 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Add new Book
+    Add new review
 </a>
     <div class="collapse <#if book??>show</#if>" id="collapseExample">
         <div class="form-group mt-3">
@@ -71,13 +71,13 @@
            <div class="card-body">
              <h5 class="card-title">${book.bookName}</h5>
              <p class="card-text"><small class="text-muted">${book.user.username}</small></p>
-             <a href="/bookProfile" class="card-link">Full review</a>
+             <a href="/bookProfile/${book.id}" class="card-link">Full review</a>
            </div>
          </div>
      </div>
      <div class="card-body">
-        <a href="/bookEdit" class="card-link">Edit</a>
-        <a href="/delete" class="card-link">Delete</a>
+        <a href="/bookEdit/${book.id}" class="card-link">Edit</a>
+        <a href="/delete/${book.id}" class="card-link">Delete</a>
      </div>
   </div>
 

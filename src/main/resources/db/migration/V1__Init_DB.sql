@@ -1,22 +1,22 @@
 create sequence hibernate_sequence start 1 increment 1;
 
 create table book (
-    id int4 not null,
+    id int8 not null,
     book_name varchar(60),
     author varchar(60),
     review varchar(4056) not null,
     filename varchar(255),
-    user_id int4,
+    user_id int8,
     primary key (id)
 );
 
 create table user_role (
-    user_id int4 not null,
+    user_id int8 not null,
     roles varchar(255)
 );
 
 create table usr (
-    id int4 not null,
+    id int8 not null,
     activation_code varchar(255),
     active boolean not null,
     email varchar(255),
