@@ -1,43 +1,50 @@
 package com.example.books.controller;
 
 import com.example.books.model.Book;
-import com.example.books.model.User;
 import com.example.books.repository.BookRepository;
-import com.example.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
+@Controller
 public class BookController {
 
     private BookRepository bookRepository;
 
-    private BookService bookService;
 
     @Autowired
-    public BookController(BookRepository bookRepository, BookService bookService) {
+    public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.bookService = bookService;
     }
 
-    @PostMapping("/delete")
-    public String delete(@RequestParam String bookName, @AuthenticationPrincipal User user) {
-        bookRepository.deleteByUserIdAndBookName(user.getId(), bookName);
+    @GetMapping("/delete/{book}")
+    public String delete(@PathVariable Book book) {
+        bookRepository.delete(book);
 
         return "main";
     }
 
-    @PostMapping("/edit")
-    public String edit(
-            @AuthenticationPrincipal User user,
-            @RequestParam String bookName,
-            @RequestParam String author,
-            @RequestParam String review
-    ) {
-        bookService.edit(bookName, author, review, user.getId());
+    @GetMapping("/bookProfile/{book}")
+    public String viewBook(@PathVariable Book book, Model model) {
+        model.addAttribute("book", book);
+        return "bookProfile";
+    }
 
-        return "/main";
+    @GetMapping("/bookEdit/{book}")
+    public String userEditForm(@PathVariable Book book, Model model) {
+        model.addAttribute("book", book);
+        return "bookEdit";
+    }
+
+    @PostMapping("/edit")
+    public String userSave(
+            @RequestBody Book book
+    ) {
+        bookRepository.save(book);
+        return "main";
     }
 }
