@@ -2,6 +2,6 @@
 <#import "parts/login.ftlh" as l>
 
 <@c.page>
- <div class="mb-1">Register</div>
+    <div class="mb-1">Register</div>
     <@l.login "/registration" true/>
 </@c.page>
