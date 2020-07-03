@@ -1,9 +1,9 @@
-<#include "security.ftlh">
-<#import "login.ftlh" as l>
+<#include "parts/security.ftlh">
+<#import "parts/login.ftlh" as l>
 
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container-fluid">
-    <a class="navbar-brand" href="/home">BookReview</a>
+    <a class="navbar-brand" href="/greeting">BookReview</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
