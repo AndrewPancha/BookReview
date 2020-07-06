@@ -1,15 +1,43 @@
-<#import "parts/common.ftlh" as c>
+<#import "common.ftlh" as c>
 
-<@c.page>
-    <div class="col-md-8">
-        <img src="/img/${book.filename!"null or missing"}" class="card-img">
-    </div>
-    <div class="col-md">
-        <div class="card-body">
-            <h5 class="card-title">${book.bookName!"null or missing"}</h5>
-            <p class="card-text">${book.review!"null or missing"}</p>
-            <p class="card-text"><small class="text-muted">${book.user.username!"null or missing"}</small></p>
+<@c.page; section>
+
+    <#if section="styles">
+        <style type="text/css">
+
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                background: url(img/1483382.jpg) no-repeat center center fixed;
+                background-size: cover;
+            }
+
+            .navbar {
+                padding: 1% 2%;
+                font-size: 1.2em;
+            }
+
+
+            .landing-text{
+                text-align: center;
+                vertical-align: middle;
+                color: white;
+            }
+
+
+        </style>
+    </#if>
+
+    <#if section="content">
+        <#include "navbar.ftlh">
+        <div class="container">
+        <div class="landing-text">
+            <h1>${book.bookName!"null or missing"}</h1>
+            <p>${book.review!"null or missing"}</p>
+            <h5>By: ${book.user.username!"null or missing"}</h5>
         </div>
-    </div>
+        </div>
+    </#if>
 
 </@c.page>

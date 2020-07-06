@@ -1,39 +1,80 @@
-<#import "parts/common.ftlh" as c>
+<#import "common.ftlh" as c>
 
-<@c.page>
-    Book editor
+<@c.page; section>
+    <#if section="styles">
+        <style type="text/css">
 
-    <form action="/edit" method="post">
-        <div class="form-group">
-            <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
-                   value="<#if book??>${book.bookName}</#if>" name="bookName"/>
-            <#if bookNameError??>
-                <div class="invalid-feedback">
-                    ${bookNameError}
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                background: url(img/1483382.jpg) no-repeat center center fixed;
+                background-size: cover;
+            }
+
+            .navbar {
+                padding: 1% 2%;
+                font-size: 1.2em;
+            }
+
+
+
+            .container{
+                padding-top: 10vh;
+            }
+
+            .form-container {
+                background: #fff;
+                padding: 40px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px 0px #000;
+                width: 100%;
+            }
+
+
+
+
+        </style>
+    </#if>
+
+
+    <#if section="content">
+        <#include "navbar.ftlh">
+        <div class="container col-12 col-md-6<#if book??>show</#if>">
+            <form action="/edit/${book.id}" method="post" class="form-container" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
+                           value="<#if book??>${book.bookName}</#if>" name="bookName" placeholder="Book name"/>
+                    <#if bookNameError??>
+                        <div class="invalid-feedback">
+                            ${bookNameError}
+                        </div>
+                    </#if>
                 </div>
-            </#if>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
-                   value="<#if book??>${book.author}</#if>" name="author"/>
-            <#if authorError??>
-                <div class="invalid-feedback">
-                    ${authorError}
+                <div class="form-group">
+                    <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
+                           value="<#if book??>${book.author}</#if>" name="author" placeholder="Author name"/>
+                    <#if authorError??>
+                        <div class="invalid-feedback">
+                            ${authorError}
+                        </div>
+                    </#if>
                 </div>
-            </#if>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="review" placeholder="Review"/>
-            <#if reviewError??>
-                <div class="invalid-feedback">
-                    ${reviewError}
+                <div class="form-group">
+                    <textarea type="text" class="form-control" rows="5" name="review" placeholder="Review"></textarea>
+                    <#if reviewError??>
+                        <div class="invalid-feedback">
+                            ${reviewError}
+                        </div>
+                    </#if>
                 </div>
-            </#if>
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-dark btn-primary btn-block">Edit</button>
+                </div>
+            </form>
         </div>
-        <input type="hidden" value="${book.id}" name="bookId">
-        <input type="hidden" value="${_csrf.token}" name="_csrf">
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Confirm</button>
-        </div>
-    </form>
+
+    </#if>
+
 </@c.page>

@@ -27,9 +27,6 @@ public class MainController {
 
     private BookRepository bookRepository;
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     @Autowired
     public MainController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
@@ -38,6 +35,14 @@ public class MainController {
     @GetMapping("/")
     public String mainLogin(Model model) {
         return "greeting";
+    }
+
+    @GetMapping("/reviews")
+    public String getReviews(Model model) {
+        Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
+
+        return "reviews";
     }
 
     @GetMapping("/greeting")
@@ -57,36 +62,19 @@ public class MainController {
             @AuthenticationPrincipal User user,
             @Valid Book book,
             BindingResult bindingResult,
-            Model model,
-            @RequestParam("file") MultipartFile file
-    ) throws IOException {
+            Model model
+    ) {
         book.setUser(user);
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
             model.addAttribute("book", book);
         } else {
-            if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-                File uploadDir = new File(uploadPath);
-
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-
-                String uuidFile = UUID.randomUUID().toString();
-                String resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-                file.transferTo(new File(uploadPath + "/" + resultFilename));
-
-                book.setFilename(resultFilename);
-            }
 
             model.addAttribute("message", null);
             bookRepository.save(book);
 
         }
-        Iterable<Book> books = bookRepository.findAll();
-        model.addAttribute("books", books);
         return "main";
     }
 

@@ -10,7 +10,6 @@ body {
 }
 
 #home{
-    background: url(img/index.jpeg) no-repeat center center fixed;
     display: table;
     height: 100%;
     position: relative;

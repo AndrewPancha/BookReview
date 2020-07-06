@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class BookController {
@@ -22,10 +21,11 @@ public class BookController {
     }
 
     @GetMapping("/delete/{book}")
-    public String delete(@PathVariable Book book) {
+    public String delete(@PathVariable Book book, Model model) {
         bookRepository.delete(book);
-
-        return "main";
+        Iterable<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
+        return "reviews";
     }
 
     @GetMapping("/bookProfile/{book}")
@@ -40,9 +40,9 @@ public class BookController {
         return "bookEdit";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/edit/{book}")
     public String userSave(
-            @RequestBody Book book
+            @PathVariable Book book
     ) {
         bookRepository.save(book);
         return "main";

@@ -1,19 +1,23 @@
-<#import "parts/common.ftlh" as c>
+<#import "common.ftlh" as c>
 
 <@c.page; section>
     <#if section = "styles">
         <style type="text/css">
+
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                background: url(img/1483382.jpg) no-repeat center center fixed;
+                background-size: cover;
+            }
+
             .navbar {
-                padding: 1% 0;
+                padding: 1% 2%;
                 font-size: 1.2em;
             }
 
-            .bg{
-                background: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fblogs.edweek.org%2Fedweek%2Ffinding_common_ground%2F2019%2F03%2F12_books_you_need_on_your_leadership_bookshelf.html&psig=AOvVaw08lz4PiqE4vUtonO5ElaXk&ust=1593885720724000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjQtpfVseoCFQAAAAAdAAAAABAD) no-repeat;
-                height: 100%;
-                width: 100vh;
-                background-size: 100%;
-            }
+
 
             .form-container{
                 background: #fff;
@@ -35,9 +39,9 @@
     <#if section="content">
         <#include "navbar.ftlh">
         <#if Session?? && Session.SPRING_SECURITY_LAST_EXCEPTION??>
-<#--            <div class="alert alert-danger" role="alert">-->
-<#--                ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}-->
-<#--            </div>-->
+            <div class="alert alert-danger" role="alert">
+                ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}
+            </div>
         </#if>
         <#if message??>
             <div class="alert alert-${messageType}" role="alert">
@@ -73,8 +77,8 @@
                         </div>
 
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
-                        <a href="/registration" class="btn btn-primary btn-block">Register</a>
+                        <button class="btn btn-primary btn-dark btn-block" type="submit">Sign in</button>
+                        <a href="/registration" class="btn btn-dark btn-primary btn-block">Register</a>
                     </form>
                 </div>
             </div>

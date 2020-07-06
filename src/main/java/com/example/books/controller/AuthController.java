@@ -20,15 +20,19 @@ import java.util.Map;
 
 @Controller
 public class AuthController {
-    @Autowired
+
     private UserRepository userRepository;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    public AuthController(UserRepository userRepository, UserService userService, BookRepository bookRepository) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.bookRepository = bookRepository;
+    }
 
     @GetMapping("/login")
     public String login() {
@@ -47,7 +51,7 @@ public class AuthController {
             model.addAttribute("books", books);
             return "main";
         }
-        return "registration";
+        return "login";
     }
 
     @GetMapping("/registration")

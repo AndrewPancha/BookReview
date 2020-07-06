@@ -1,15 +1,47 @@
-<#import "parts/common.ftlh" as c>
-<#import "parts/login.ftlh" as l>
-<@c.page>
+<#import "common.ftlh" as c>
+<@c.page; section>
 
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-       aria-controls="collapseExample">
-        Add new review
-    </a>
+    <#if section="styles">
+        <style type="text/css">
 
-    <div class="collapse <#if book??>show</#if>" id="collapseExample">
-        <div class="form-group mt-3">
-            <form action="/add" method="post" enctype="multipart/form-data">
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                background: url(img/1483382.jpg) no-repeat center center fixed;
+                background-size: cover;
+            }
+
+            .navbar {
+                padding: 1% 2%;
+                font-size: 1.2em;
+            }
+
+
+
+            .container{
+                padding-top: 10vh;
+            }
+
+            .form-container {
+                background: #fff;
+                padding: 40px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px 0px #000;
+                width: 100%;
+            }
+
+
+
+
+        </style>
+    </#if>
+
+
+    <#if section="content">
+        <#include "navbar.ftlh">
+        <div class="container col-12 col-md-6<#if book??>show</#if>">
+            <form action="/add" method="post" class="form-container" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
                            value="<#if book??>${book.bookName}</#if>" name="bookName" placeholder="Book name"/>
@@ -29,64 +61,20 @@
                     </#if>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="review" placeholder="Review"/>
+                    <textarea type="text" class="form-control" rows="5" name="review" placeholder="Review"></textarea>
                     <#if reviewError??>
                         <div class="invalid-feedback">
                             ${reviewError}
                         </div>
                     </#if>
                 </div>
-                <div class="form-group">
-                    <div class="custom-file">
-                        <input type="file" name="file" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Confirm</button>
+                    <button type="submit" class="btn btn-dark btn-primary btn-block">Add review</button>
                 </div>
             </form>
         </div>
-    </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6 mt-3">
-            <form method="get" action="/find" class="form-inline">
-                <input type="text" name="findBookName" class="form-control" value="${find?ifExists}"
-                       placeholder="Search by name"/>
-                <button type="submit" class="btn btn-primary ml-2">Search</button>
-            </form>
-        </div>
-    </div>
-
-
-    <#if books??>
-        <div class="card-columns">
-            <#list books as book>
-
-                <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="/img/${book.filename}" class="card-img">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">${book.bookName}</h5>
-                                <p class="card-text"><small class="text-muted">${book.user.username}</small></p>
-                                <a href="/bookProfile/${book.id}" class="card-link">Full review</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <a href="/bookEdit/${book.id}" class="card-link">Edit</a>
-                        <a href="/delete/${book.id}" class="card-link">Delete</a>
-                    </div>
-                </div>
-
-            </#list>
-        </div>
-    <#else>No books added
     </#if>
 
 </@c.page>
