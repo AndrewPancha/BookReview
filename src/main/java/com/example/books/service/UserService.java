@@ -65,7 +65,7 @@ public class UserService implements UserDetailsService{
         if (!StringUtils.isEmpty(user.getEmail())) { //if email is not empty send activation code
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to BooksRepo. Please, visit next link: http://%s/activate/%s",
+                            "Welcome to BooksRepo. Please, visit next link: https://%s/activate/%s",
                     user.getUsername(),
                     hostname,
                     user.getActivationCode()
