@@ -47,7 +47,7 @@
     </#if>
     <#if section="content">
         <#include "navbar.ftlh">
-        <div class="container">
+        <div class="container col-md-6">
         <div class="landing-text">
             <h1>BookReview</h1>
             <h4>Add your review</h4>
