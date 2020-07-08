@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -38,8 +39,9 @@ public class MainController {
     }
 
     @GetMapping("/reviews")
-    public String getReviews(Model model) {
-        Iterable<Book> books = bookRepository.findAll();
+    public String getReviews(@AuthenticationPrincipal User user, Model model) {
+
+        List<Book> books = bookRepository.findByUserId(user.getId());
         model.addAttribute("books", books);
 
         return "reviews";

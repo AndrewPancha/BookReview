@@ -35,7 +35,7 @@
         <div class="landing-text">
             <h1>${book.bookName!"null or missing"}</h1>
             <p>${book.review!"null or missing"}</p>
-            <h5>By: ${book.user.username!"null or missing"}</h5>
+            <h5>By: ${book.author!"null or missing"}</h5>
         </div>
         </div>
     </#if>
