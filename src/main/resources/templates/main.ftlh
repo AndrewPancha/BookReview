@@ -21,6 +21,7 @@
 
             .container{
                 padding-top: 10vh;
+                width: 700px;
             }
 
             .form-container {
@@ -40,7 +41,7 @@
 
     <#if section="content">
         <#include "navbar.ftlh">
-        <div class="container col-12 col-md-6<#if book??>show</#if>">
+        <div class="container <#if book??>show</#if>">
             <form action="/add" method="post" class="form-container" enctype="multipart/form-data">
                 <div class="form-group">
                     <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"

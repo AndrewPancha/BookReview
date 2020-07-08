@@ -28,7 +28,7 @@
             <div class="form-row justify-content-center">
                 <div class="form-group col-md-6 mt-3">
                     <form method="get" action="/globalFind" class="form-inline">
-                        <input type="text" name="findBookName" class="form-control" value="${globalFind?ifExists}"
+                        <input type="text" name="findBookName" class="form-control"
                                placeholder="Search by name"/>
                         <button type="submit" class="btn btn-dark btn-primary ml-2">Search</button>
                     </form>
@@ -54,7 +54,7 @@
 
                 </#list>
             </div>
-        <#else>No books added
+        <#else> No books added
         </#if>
         </div>
     </#if>

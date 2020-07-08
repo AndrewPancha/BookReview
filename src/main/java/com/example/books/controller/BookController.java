@@ -25,7 +25,7 @@ public class BookController {
         bookRepository.delete(book);
         Iterable<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
-        return "reviews";
+        return "redirect:/reviews";
     }
 
     @GetMapping("/bookProfile/{book}")
@@ -46,5 +46,10 @@ public class BookController {
     ) {
         bookRepository.save(book);
         return "main";
+    }
+
+    @GetMapping
+    public String getProfile() {
+        return "bookProfile";
     }
 }

@@ -74,7 +74,7 @@
 
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <button class="btn btn-primary btn-dark btn-block" type="submit">Sign in</button>
-                        <a href="/registration" class="btn btn-dark btn-primary btn-block">Register</a>
+                        <a href="/registration" class="btn btn-dark btn-primary btn-block">Sign up</a>
                     </form>
                 </div>
             </div>
