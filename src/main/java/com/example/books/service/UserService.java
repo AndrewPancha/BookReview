@@ -21,17 +21,14 @@ public class UserService implements UserDetailsService{
 
     private UserRepository userRepository;
 
-    private MailSender mailSender;
 
     private PasswordEncoder passwordEncoder;
 
-    @Value("${hostname}")
-    private String hostname;
+
 
     @Autowired
-    public UserService(UserRepository userRepository, MailSender mailSender, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.mailSender = mailSender;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -53,38 +50,38 @@ public class UserService implements UserDetailsService{
 
         user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
-        user.setActivationCode(UUID.randomUUID().toString());
+//        user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
-        sendMessage(user);
+//        sendMessage(user);
         return true;
     }
 
-    private void sendMessage(User user) {
-        if (!StringUtils.isEmpty(user.getEmail())) { //if email is not empty send activation code
-            String message = String.format(
-                    "Hello, %s! \n" +
-                            "Welcome to BooksRepo. Please, visit next link: https://%s/activate/%s",
-                    user.getUsername(),
-                    hostname,
-                    user.getActivationCode()
-            );
+//    private void sendMessage(User user) {
+//        if (!StringUtils.isEmpty(user.getEmail())) { //if email is not empty send activation code
+//            String message = String.format(
+//                    "Hello, %s! \n" +
+//                            "Welcome to BooksRepo. Please, visit next link: https://%s/activate/%s",
+//                    user.getUsername(),
+//                    hostname,
+//                    user.getActivationCode()
+//            );
+//
+//            mailSender.send(user.getEmail(), "Activation code", message);
+//        }
+//    }
 
-            mailSender.send(user.getEmail(), "Activation code", message);
-        }
-    }
-
-    public boolean activateUser(String code) {
-        User user = userRepository.findByActivationCode(code);
-        if (user == null) {
-            return false;
-        }
-        user.setActivationCode(null);
-        user.setActive(true);
-        userRepository.save(user);
-        return true;
-    }
+//    public boolean activateUser(String code) {
+//        User user = userRepository.findByActivationCode(code);
+//        if (user == null) {
+//            return false;
+//        }
+//        user.setActivationCode(null);
+//        user.setActive(true);
+//        userRepository.save(user);
+//        return true;
+//    }
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -108,19 +105,19 @@ public class UserService implements UserDetailsService{
         userRepository.save(user);
     }
 
-    public void updateProfile(User user, String password, String email) {
-        String userEmail = user.getEmail();
-
-        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-                (userEmail != null && !userEmail.equals(email));
-
-        if (isEmailChanged) {
-            user.setEmail(email);
-
-            if (StringUtils.isEmpty(email)) {
-                user.setActivationCode(UUID.randomUUID().toString());
-            }
-        }
+    public void updateProfile(User user, String password) {
+//        String userEmail = user.getEmail();
+//
+//        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
+//                (userEmail != null && !userEmail.equals(email));
+//
+//        if (isEmailChanged) {
+//            user.setEmail(email);
+//
+//            if (StringUtils.isEmpty(email)) {
+//                user.setActivationCode(UUID.randomUUID().toString());
+//            }
+//        }
 
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(passwordEncoder.encode(password));
@@ -128,8 +125,8 @@ public class UserService implements UserDetailsService{
 
         userRepository.save(user);
 
-        if (isEmailChanged) {
-            sendMessage(user);
-        }
+//        if (isEmailChanged) {
+//            sendMessage(user);
+//        }
     }
 }

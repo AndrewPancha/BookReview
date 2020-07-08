@@ -96,19 +96,19 @@
                                 </div>
                             </#if>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email: </label>
-                            <input type="email" name="email" id="email" value="<#if user??>${user.email}</#if>"
-                                   class="form-control ${(emailError??)?string('is-invalid', '')}"
-                                   placeholder="some@some.com"/>
-                            <#if emailError??>
-                                <div class="invalid-feedback">
-                                    ${emailError}
-                                </div>
-                            </#if>
-                        </div>
+<#--                        <div class="form-group">-->
+<#--                            <label for="email">Email: </label>-->
+<#--                            <input type="email" name="email" id="email" value="<#if user??>${user.email}</#if>"-->
+<#--                                   class="form-control ${(emailError??)?string('is-invalid', '')}"-->
+<#--                                   placeholder="some@some.com"/>-->
+<#--                            <#if emailError??>-->
+<#--                                <div class="invalid-feedback">-->
+<#--                                    ${emailError}-->
+<#--                                </div>-->
+<#--                            </#if>-->
+<#--                        </div>-->
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                        <button class="btn btn-dark btn-primary btn-block" type="submit">Register</button>
+                        <button class="btn btn-dark btn-primary btn-block" type="submit">Sign up</button>
                     </form>
                 </div>
             </div>

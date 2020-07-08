@@ -22,7 +22,6 @@ public class Book {
     @Length(max = 4056, message = "Review is too long")
     private String review;
 
-//    private String filename;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

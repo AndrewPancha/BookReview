@@ -1,6 +1,7 @@
 package com.example.books.controller;
 
 import com.example.books.model.Book;
+import com.example.books.model.Role;
 import com.example.books.model.User;
 import com.example.books.repository.BookRepository;
 import com.example.books.repository.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.Map;
 
 @Controller
@@ -89,19 +91,22 @@ public class AuthController {
             model.addAttribute("usernameError", "User exists!");
             return "registration";
         }
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.USER));
+//        userRepository.save(user);
         return "redirect:/login";
     }
 
-    @GetMapping("/activate/{code}")
-    public String activate(Model model, @PathVariable String code) {
-        boolean isActivated = userService.activateUser(code);
-        if (isActivated) {
-            model.addAttribute("messageType", "success");
-            model.addAttribute("message", "User successfully activated");
-        } else {
-            model.addAttribute("messageType", "danger");
-            model.addAttribute("message", "Activation code is not found");
-        }
-        return "login";
-    }
+//    @GetMapping("/activate/{code}")
+//    public String activate(Model model, @PathVariable String code) {
+//        boolean isActivated = userService.activateUser(code);
+//        if (isActivated) {
+//            model.addAttribute("messageType", "success");
+//            model.addAttribute("message", "User successfully activated");
+//        } else {
+//            model.addAttribute("messageType", "danger");
+//            model.addAttribute("message", "Activation code is not found");
+//        }
+//        return "login";
+//    }
 }

@@ -24,10 +24,10 @@ public class User implements UserDetails{
     private String password;
 
     private boolean active;
-    @Email(message = "Email is not correct")
-    @NotBlank(message = "Email cannot be empty")
-    private String email;
-    private String activationCode;
+//    @Email(message = "Email is not correct")
+//    @NotBlank(message = "Email cannot be empty")
+//    private String email;
+//    private String activationCode;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Book> books;
@@ -93,21 +93,9 @@ public class User implements UserDetails{
         this.active = active;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getActivationCode() {
-        return activationCode;
-    }
-
-    public void setActivationCode(String activationCode) {
-        this.activationCode = activationCode;
-    }
+// d setActivationCode(String activationCode) {
+//        this.activationCode = activationCode;
+//    }
 
 
     @Override
