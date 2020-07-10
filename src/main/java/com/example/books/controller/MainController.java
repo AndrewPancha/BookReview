@@ -66,7 +66,24 @@ public class MainController {
             BindingResult bindingResult,
             Model model
     ) {
+        if (book.getBookName() == null) {
+            model.addAttribute("bookNameError", "Book name cannot be empty");
+            return "main";
+        }
+
+        if (book.getAuthor() == null) {
+            model.addAttribute("authorError", "Author cannot be empty");
+            return "main";
+        }
+
+        if (book.getReview() == null) {
+            model.addAttribute("reviewError", "Review cannot be empty");
+            return "main";
+        }
+
+
         book.setUser(user);
+
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
@@ -81,14 +98,14 @@ public class MainController {
     }
 
     @GetMapping("/find")
-    public String find(@RequestParam String findBookName, Model model) {
-        Iterable<Book> books = bookRepository.findByBookNameIgnoreCase(findBookName);
-        if (books == null) {
-            model.addAttribute("message", "Can't find!");
-            return "main";
-        }
+    public String find(@RequestParam("findBookName") String findBookName, Model model) {
+        Iterable<Book> books = bookRepository.findBooksByBookName(findBookName);
+//        if (books == null) {
+//            model.addAttribute("message", "Can't find!");
+//            return "main";
+//        }
         model.addAttribute("books", books);
-        return "main";
+        return "reviews";
     }
 
     @GetMapping("/home")
@@ -100,10 +117,10 @@ public class MainController {
     }
 
     @GetMapping("/globalFind")
-    public String globalFind(@RequestParam String findBookName, Model model) {
-        Iterable<Book> books = bookRepository.findByBookNameIgnoreCase(findBookName);
+    public String globalFind(@RequestParam("findBookName") String findBookName, Model model) {
+        Iterable<Book> books = bookRepository.findBooksByBookName(findBookName);
         if (books != null) {
-            model.addAttribute("books, books");
+            model.addAttribute("books", books);
             return "home";
         }
         model.addAttribute("message", "Can't find!");

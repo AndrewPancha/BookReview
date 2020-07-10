@@ -36,14 +36,16 @@ public class BookController {
 
     @GetMapping("/bookEdit/{book}")
     public String userEditForm(@PathVariable Book book, Model model) {
+
         model.addAttribute("book", book);
         return "bookEdit";
     }
 
-    @PostMapping("/edit/{book}")
+    @PostMapping("/bookEdit/{book}")
     public String userSave(
             @PathVariable Book book
     ) {
+        bookRepository.deleteById(book.getId());
         bookRepository.save(book);
         return "main";
     }

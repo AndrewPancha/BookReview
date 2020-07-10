@@ -44,7 +44,7 @@
         <div class="container <#if book??>show</#if>">
             <form action="/add" method="post" class="form-container" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
+                    <input type="text" class="form-control ${(bookNameError??)?string('is-invalid', '')}"
                            value="<#if book??>${book.bookName}</#if>" name="bookName" placeholder="Book name"/>
                     <#if bookNameError??>
                         <div class="invalid-feedback">
@@ -53,7 +53,7 @@
                     </#if>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
+                    <input type="text" class="form-control ${(authorError??)?string('is-invalid', '')}"
                            value="<#if book??>${book.author}</#if>" name="author" placeholder="Author name"/>
                     <#if authorError??>
                         <div class="invalid-feedback">
@@ -62,7 +62,8 @@
                     </#if>
                 </div>
                 <div class="form-group">
-                    <textarea type="text" class="form-control" rows="5" name="review" placeholder="Review"></textarea>
+                    <textarea type="text" class="form-control ${(reviewError??)?string('is-invalid', '')}"
+                              rows="5" name="review"  placeholder="Review"><#if book??>${book.review}</#if></textarea>
                     <#if reviewError??>
                         <div class="invalid-feedback">
                             ${reviewError}
