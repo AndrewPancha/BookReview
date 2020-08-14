@@ -50,38 +50,11 @@ public class UserService implements UserDetailsService{
 
         user.setActive(false);
         user.setRoles(Collections.singleton(Role.USER));
-//        user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
-//        sendMessage(user);
         return true;
     }
 
-//    private void sendMessage(User user) {
-//        if (!StringUtils.isEmpty(user.getEmail())) { //if email is not empty send activation code
-//            String message = String.format(
-//                    "Hello, %s! \n" +
-//                            "Welcome to BooksRepo. Please, visit next link: https://%s/activate/%s",
-//                    user.getUsername(),
-//                    hostname,
-//                    user.getActivationCode()
-//            );
-//
-//            mailSender.send(user.getEmail(), "Activation code", message);
-//        }
-//    }
-
-//    public boolean activateUser(String code) {
-//        User user = userRepository.findByActivationCode(code);
-//        if (user == null) {
-//            return false;
-//        }
-//        user.setActivationCode(null);
-//        user.setActive(true);
-//        userRepository.save(user);
-//        return true;
-//    }
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -106,27 +79,10 @@ public class UserService implements UserDetailsService{
     }
 
     public void updateProfile(User user, String password) {
-//        String userEmail = user.getEmail();
-//
-//        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-//                (userEmail != null && !userEmail.equals(email));
-//
-//        if (isEmailChanged) {
-//            user.setEmail(email);
-//
-//            if (StringUtils.isEmpty(email)) {
-//                user.setActivationCode(UUID.randomUUID().toString());
-//            }
-//        }
-
         if (!StringUtils.isEmpty(password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepository.save(user);
-
-//        if (isEmailChanged) {
-//            sendMessage(user);
-//        }
     }
 }
