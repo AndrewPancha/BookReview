@@ -24,10 +24,6 @@ public class User implements UserDetails{
     private String password;
 
     private boolean active;
-//    @Email(message = "Email is not correct")
-//    @NotBlank(message = "Email cannot be empty")
-//    private String email;
-//    private String activationCode;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Book> books;
@@ -92,11 +88,6 @@ public class User implements UserDetails{
     public void setActive(boolean active) {
         this.active = active;
     }
-
-// d setActivationCode(String activationCode) {
-//        this.activationCode = activationCode;
-//    }
-
 
     @Override
     public boolean isAccountNonExpired() {
