@@ -100,10 +100,6 @@ public class MainController {
     @GetMapping("/find")
     public String find(@RequestParam("findBookName") String findBookName, Model model) {
         Iterable<Book> books = bookRepository.findBooksByBookName(findBookName);
-//        if (books == null) {
-//            model.addAttribute("message", "Can't find!");
-//            return "main";
-//        }
         model.addAttribute("books", books);
         return "reviews";
     }
